@@ -1070,7 +1070,7 @@ public class FlutterBluePlusPlugin implements
                     }
 
                     // find cccd descriptor
-                    BluetoothGattDescriptor cccd = getDescriptorFromArray(characteristicUuid, characteristic.getDescriptors());
+                    BluetoothGattDescriptor cccd = getDescriptorFromArray(CCCD, characteristic.getDescriptors());
                     if(cccd == null) {
                         // Some ble devices do not actually need their CCCD updated.
                         // thus setCharacteristicNotification() is all that is required to enable notifications.
