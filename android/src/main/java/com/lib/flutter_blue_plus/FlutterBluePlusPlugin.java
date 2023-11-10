@@ -1061,7 +1061,6 @@ public class FlutterBluePlusPlugin implements
                     }
 
                     BluetoothGattCharacteristic characteristic = found.characteristic;
-                    String characteristicUuid = uuidStr(characteristic.getUuid());
 
                     // configure local Android device to listen for characteristic changes
                     if(!gatt.setCharacteristicNotification(characteristic, enable)){
