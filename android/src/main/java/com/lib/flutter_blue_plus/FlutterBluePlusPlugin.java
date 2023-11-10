@@ -935,7 +935,7 @@ public class FlutterBluePlusPlugin implements
                     BluetoothGattCharacteristic characteristic = found.characteristic;
 
                     // find descriptor
-                    BluetoothGattDescriptor descriptor = getDescriptorFromArray(characteristicUuid, characteristic.getDescriptors());
+                    BluetoothGattDescriptor descriptor = getDescriptorFromArray(descriptorUuid, characteristic.getDescriptors());
                     if(descriptor == null) {
                         String s = "descriptor not found on characteristic. (desc: " + descriptorUuid + " chr: " + characteristicUuid + ")";
                         result.error("writeDescriptor", s, null);
@@ -1061,6 +1061,7 @@ public class FlutterBluePlusPlugin implements
                     }
 
                     BluetoothGattCharacteristic characteristic = found.characteristic;
+                    String characteristicUuid = uuidStr(characteristic.getUuid());
 
                     // configure local Android device to listen for characteristic changes
                     if(!gatt.setCharacteristicNotification(characteristic, enable)){
@@ -1070,13 +1071,12 @@ public class FlutterBluePlusPlugin implements
                     }
 
                     // find cccd descriptor
-                    BluetoothGattDescriptor cccd = getDescriptorFromArray(CCCD, characteristic.getDescriptors());
+                    BluetoothGattDescriptor cccd = getDescriptorFromArray(characteristicUuid, characteristic.getDescriptors());
                     if(cccd == null) {
                         // Some ble devices do not actually need their CCCD updated.
                         // thus setCharacteristicNotification() is all that is required to enable notifications.
                         // The arduino "bluno" devices are an example.
-                        String uuid = uuidStr(characteristic.getUuid());
-                        log(LogLevel.WARNING, "CCCD descriptor for characteristic not found: " + uuid);
+                        log(LogLevel.WARNING, "CCCD descriptor for characteristic not found: " + characteristicUuid);
                         result.success(false);
                         return;
                     }
