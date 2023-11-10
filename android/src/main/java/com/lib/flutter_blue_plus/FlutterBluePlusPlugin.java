@@ -1570,7 +1570,7 @@ public class FlutterBluePlusPlugin implements
     private BluetoothGattDescriptor getDescriptorFromArray(String uuid, List<BluetoothGattDescriptor> array)
     {
         for (BluetoothGattDescriptor d : array) {
-            if (d.getUuid().toString().equals(uuid)) {
+            if (uuidStr(d.getUuid()).equals(uuidStr(UUID.fromString(uuid)))) {
                 return d;
             }
         }
