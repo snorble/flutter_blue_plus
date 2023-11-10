@@ -935,7 +935,7 @@ public class FlutterBluePlusPlugin implements
                     BluetoothGattCharacteristic characteristic = found.characteristic;
 
                     // find descriptor
-                    BluetoothGattDescriptor descriptor = getDescriptorFromArray(descriptorUuid, characteristic.getDescriptors());
+                    BluetoothGattDescriptor descriptor = getDescriptorFromArray(characteristicUuid, characteristic.getDescriptors());
                     if(descriptor == null) {
                         String s = "descriptor not found on characteristic. (desc: " + descriptorUuid + " chr: " + characteristicUuid + ")";
                         result.error("writeDescriptor", s, null);
@@ -1571,7 +1571,7 @@ public class FlutterBluePlusPlugin implements
     private BluetoothGattDescriptor getDescriptorFromArray(String uuid, List<BluetoothGattDescriptor> array)
     {
         for (BluetoothGattDescriptor d : array) {
-            if (uuidStr(d.getUuid()).equals(uuid)) {
+            if (d.getUuid().toString().equals(uuid)) {
                 return d;
             }
         }
